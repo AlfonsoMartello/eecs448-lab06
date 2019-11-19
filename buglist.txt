@@ -1,0 +1,21 @@
+List of functions and whether or not they work:
+  1. Constructor works.
+  2. isEmpty() works.
+  3. enqueue(const int& newEntry) does NOT work.
+  4. dequeue() works.
+  5. peekFront() works.
+  6. Destructor does NOT work.
+
+Explanation of Bugs:
+  1. Destructor: The bug with the destrcutor was found using the valgrind command.
+     Creating a Queue creates memory leaks.
+  2. Enqueue: The bug with enqueue is that it adds new entries to the front of
+     the Queue and not the back. This conclusion comes from multiple tests, but
+     enqueue test 5 provides a clear example. The test enqueues the values 5 and
+     10 onto the Queue (in that order). Then it dequeues one value. The expected
+     final value is 10, but the actual final value is 5. This means that either
+     enqueue added to the front or dequeue removed from the back (since peekFront
+     test 3 shows that peeking at one value returns the correct value). However,
+     enqueue test 5 also enqueues the values 5 and 10 onto the Queue (in that order),
+     but does not use dequeue. Thus, peeking should return the value 5. However,
+     the value 10 is returned. This means that enqueue added to the front.
